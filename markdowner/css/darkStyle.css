@@ -1,0 +1,172 @@
+:root {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+
+  /* --m: 1rem;
+  --l: calc(1rem * 1.618);
+  --xl: calc(1rem * 1.618 * 1.618);
+  --xxl: calc(1rem * 1.618 * 1.618 * 1.618);
+  --s: calc(1rem / 1.618);
+  --xs: calc(1rem / 1.618 / 1.618);
+  --xxs: calc(1rem / 1.618 / 1.618 / 1.618); */
+  --phi: 1.618;
+  --m: 1rem;
+  --l: calc(var(--m) * var(--phi));
+  --xl: calc(var(--l) * var(--phi));
+  --xxl: calc(var(--xl) * var(--phi));
+  --s: calc(var(--m) / var(--phi));
+  --xs: calc(var(--s) / var(--phi));
+  --xxs: calc(var(--xs) / var(--phi));
+  --xxxs: calc(var(--xxs) / var(--phi));
+
+  --gap: var(--m);
+
+  /* Colors */
+  /* --clr-dark: 230 35% 7%; */
+  --clr-dark: 0 0% 12%;
+  --clr-light: 210 61% 48%;
+  --clr-compliment: 30 61% 48%;
+  /* --clr-light: 211, 36%, 54%; */
+  /* --clr-white: 0 0% 100%; */
+  --clr-white: 140 3% 78%;
+  --clr-link: 48 49% 48%;
+  --clr-link-visited: 48 40% 41%;
+  --clr-pink: 300 61% 48%;
+  --clr-green: 120 61% 48%;
+
+  /* Fonts Sizes */
+  /* --fs-900: 9.375rem;
+  --fs-800: 6.25rem;
+  --fs-700: 3.5rem;
+  --fs-600: 2rem;
+  --fs-500: 1.75rem;
+  --fs-400: 1.125rem;
+  --fs-300: 1rem;
+  --fs-200: 0.875rem; */
+
+  /* Font Families */
+  --ff-serif: "Noto Serif Display", serif;
+  --ff-sans-condition: "Barlow Condensed", sans-serif;
+  --ff-sans-normal: "Noto Znamenny Musical Notation", sans-serif;
+
+  --ff-serif-bellefair: "Cormorant", serif;
+
+  --color-black: rgb(30, 30, 30);
+  --color-darkgrey: rgb(60, 60, 60);
+}
+
+.viewport-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  flex-grow: 1;
+}
+
+.topBar {
+  color: hsl(var(--clr-white));
+  padding: var(--xxs);
+  background-color: hsl(var(--clr-light));
+}
+
+.button {
+  color: hsl(var(--clr-white));
+  padding-inline: var(--xxs);
+  border: var(--xxxs) solid hsl(var(--clr-white));
+  background-color: hsl(var(--clr-compliment));
+}
+
+.viewport-wrapper > * {
+  flex-grow: 1;
+}
+
+.contentWrapper {
+  height: 100%;
+}
+
+.contentWrapper > * {
+  color: hsl(var(--clr-white));
+  background-color: hsl(var(--clr-dark));
+  flex-grow: 1;
+  flex: 1;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+/* body {
+  margin: 0;
+  padding: 0;
+  color: azure;
+  background-color: rgb(30, 30, 30);
+}
+#topBar {
+  background-color: rgb(60, 60, 60);
+  width: 100%;
+  height: 40px;
+  padding-top: 8px;
+}
+#logo {
+  font-size: 150%;
+  color: azure;
+  float: left;
+  margin: 0 0 0 8px;
+}
+#buttons {
+  display: table;
+  margin: 0 0 0 40%;
+  cursor: pointer;
+}
+.toggleButton {
+  float: left;
+  border: 1px solid rgb(17, 17, 17);
+  border-right: none;
+  padding: 6px;
+  background-color: rgb(30, 30, 30);
+  color: azure;
+  font-size: 110%;
+}
+#mdButton {
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
+}
+#outputButton {
+  border-top-right-radius: 10%;
+  border-bottom-right-radius: 10%;
+  border-right: 1px solid rgb(17, 17, 17);
+}
+.highlightedButton {
+  background-color: rgb(45, 45, 45);
+}
+.activeButton {
+  background-color: rgb(45, 45, 45);
+} */
+/* .panel {
+} */
+
+/* textarea {
+  font-size: 90%;
+  resize: none;
+  color: inherit;
+} */
+
+/* iframe {
+  border: none;
+}
+.outputPanel {
+  border: none;
+}
+.hidden {
+  display: none;
+} */
+
+/* .container {
+  max-width: 90ch;
+  margin-inline: auto;
+  padding-inline: var(--m);
+} */
