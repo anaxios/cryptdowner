@@ -36,14 +36,14 @@
   --clr-green: 120 61% 48%;
 
   /* Fonts Sizes */
-  /* --fs-900: 9.375rem;
+  --fs-900: 9.375rem;
   --fs-800: 6.25rem;
   --fs-700: 3.5rem;
   --fs-600: 2rem;
   --fs-500: 1.75rem;
   --fs-400: 1.125rem;
   --fs-300: 1rem;
-  --fs-200: 0.875rem; */
+  --fs-200: 0.875rem;
 
   /* Font Families */
   --ff-serif: "Noto Serif Display", serif;
@@ -56,11 +56,28 @@
   --color-darkgrey: rgb(60, 60, 60);
 }
 
+html {
+  font-family: var(--ff-serif-normal);
+  font-size: var(--fs-400);
+}
+
+body {
+  background-color: hsl(var(--clr-dark));
+}
+
 .viewport-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
   flex-grow: 1;
+  max-width: 70ch;
+  max-height: calc(70ch / var(--phi));
+  margin-inline: auto;
+}
+
+.viewport-wrapper > * {
+  flex-grow: 1;
+  flex-wrap: wrap;
 }
 
 .topBar {
@@ -76,17 +93,14 @@
   background-color: hsl(var(--clr-compliment));
 }
 
-.viewport-wrapper > * {
-  flex-grow: 1;
-}
-
 .contentWrapper {
+  --_clr-white: #f0f0f0;
   height: 100%;
 }
 
 .contentWrapper > * {
-  color: hsl(var(--clr-white));
-  background-color: hsl(var(--clr-dark));
+  color: hsl(var(--clr-dark));
+  background-color: var(--_clr-white);
   flex-grow: 1;
   flex: 1;
 }
@@ -98,75 +112,3 @@
 .grid {
   display: grid;
 }
-
-/* body {
-  margin: 0;
-  padding: 0;
-  color: azure;
-  background-color: rgb(30, 30, 30);
-}
-#topBar {
-  background-color: rgb(60, 60, 60);
-  width: 100%;
-  height: 40px;
-  padding-top: 8px;
-}
-#logo {
-  font-size: 150%;
-  color: azure;
-  float: left;
-  margin: 0 0 0 8px;
-}
-#buttons {
-  display: table;
-  margin: 0 0 0 40%;
-  cursor: pointer;
-}
-.toggleButton {
-  float: left;
-  border: 1px solid rgb(17, 17, 17);
-  border-right: none;
-  padding: 6px;
-  background-color: rgb(30, 30, 30);
-  color: azure;
-  font-size: 110%;
-}
-#mdButton {
-  border-top-left-radius: 10%;
-  border-bottom-left-radius: 10%;
-}
-#outputButton {
-  border-top-right-radius: 10%;
-  border-bottom-right-radius: 10%;
-  border-right: 1px solid rgb(17, 17, 17);
-}
-.highlightedButton {
-  background-color: rgb(45, 45, 45);
-}
-.activeButton {
-  background-color: rgb(45, 45, 45);
-} */
-/* .panel {
-} */
-
-/* textarea {
-  font-size: 90%;
-  resize: none;
-  color: inherit;
-} */
-
-/* iframe {
-  border: none;
-}
-.outputPanel {
-  border: none;
-}
-.hidden {
-  display: none;
-} */
-
-/* .container {
-  max-width: 90ch;
-  margin-inline: auto;
-  padding-inline: var(--m);
-} */
