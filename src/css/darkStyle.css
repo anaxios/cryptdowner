@@ -1,15 +1,19 @@
+@font-face {
+  font-family: Handjet;
+  src: url("/src/fonts/Handjet[ELGR,ELSH,wght].ttf")
+    format("truetype-variations");
+}
+
+@font-face {
+  font-family: iAWriter;
+  src: url("/src/fonts/iAWriterDuoV.ttf") format("truetype-variations");
+}
+
 :root {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-smooth: never;
 
-  /* --m: 1rem;
-  --l: calc(1rem * 1.618);
-  --xl: calc(1rem * 1.618 * 1.618);
-  --xxl: calc(1rem * 1.618 * 1.618 * 1.618);
-  --s: calc(1rem / 1.618);
-  --xs: calc(1rem / 1.618 / 1.618);
-  --xxs: calc(1rem / 1.618 / 1.618 / 1.618); */
   --phi: 1.618;
   --m: 1rem;
   --l: calc(var(--m) * var(--phi));
@@ -57,21 +61,32 @@
 }
 
 html {
-  font-family: var(--ff-serif-normal);
-  font-size: var(--fs-400);
+  /* color: hsl(var(--clr-compliment));
+  font-family: iAWriter;
+  font-size: var(--m); */
 }
 
 body {
   background-color: hsl(var(--clr-dark));
+  font-family: iAWriterDuoV;
+  font-size: var(--m);
+}
+
+.logo {
+  color: hsl(var(--clr-white));
+  font-family: Handjet;
+  font-size: var(--l);
+  padding-block: var(--xxxs);
 }
 
 .viewport-wrapper {
+  --_width: 70ch;
   display: flex;
   flex-direction: column;
   height: 100vh;
   flex-grow: 1;
-  max-width: 70ch;
-  max-height: calc(70ch / var(--phi));
+  max-width: var(--_width);
+  max-height: calc(var(--_width) / var(--phi));
   margin-inline: auto;
 }
 
@@ -88,9 +103,11 @@ body {
 
 .button {
   color: hsl(var(--clr-white));
-  padding-inline: var(--xxs);
+  margin-inline: var(--xxs);
   border: var(--xxxs) solid hsl(var(--clr-white));
+  border-width: 0;
   background-color: hsl(var(--clr-compliment));
+  padding: var(--xxs);
 }
 
 .contentWrapper {
@@ -99,6 +116,7 @@ body {
 }
 
 .contentWrapper > * {
+  font-family: iAWriter;
   color: hsl(var(--clr-dark));
   background-color: var(--_clr-white);
   flex-grow: 1;
