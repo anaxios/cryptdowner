@@ -1,12 +1,11 @@
 @font-face {
   font-family: Handjet;
-  src: url("/src/fonts/Handjet[ELGR,ELSH,wght].ttf")
-    format("truetype-variations");
+  src: url("../fonts/Handjet[ELGR,ELSH,wght].ttf") format("truetype-variations");
 }
 
 @font-face {
   font-family: iAWriter;
-  src: url("/src/fonts/iAWriterDuoV.ttf") format("truetype-variations");
+  src: url("../fonts/iAWriterDuoV.ttf") format("truetype-variations");
 }
 
 :root {
@@ -58,12 +57,6 @@
 
   --color-black: rgb(30, 30, 30);
   --color-darkgrey: rgb(60, 60, 60);
-}
-
-html {
-  /* color: hsl(var(--clr-compliment));
-  font-family: iAWriter;
-  font-size: var(--m); */
 }
 
 body {
