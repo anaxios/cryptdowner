@@ -1,6 +1,3 @@
-import View from "./view.js";
-import Model from "./model.js";
-
 export default class Controller {
   constructor(model, view) {
     this.model = model;
@@ -17,12 +14,16 @@ export default class Controller {
     this.model.password = this.view.getPasswordFromField();
     this.model.message = this.view.getMessageFromField();
     this.view.setUrlState(this.model.encrypt());
+    this.view.copyUrlToClipboard(this.view.getUrlState());
     this.view.setMessageField("");
   }
 
   decrypt() {
     this.model.password = this.view.getPasswordFromField();
-    this.model.message = this.view.getUrlState();
+    this.model.message = this.view
+      .getUrlState()
+      .searchParams.get("content")
+      .toString();
     this.view.setMessageField(this.model.decrypt(this.model.message));
   }
 }
