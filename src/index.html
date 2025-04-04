@@ -7,7 +7,7 @@
     <script language="javascript" src="js/lz-string.min.js"></script>
     <script defer src="js/alpine.js"></script>
     <script language="javascript" src="js/sjcl.js"></script>
-    <script language="javascript" src="js/main.js"></script>
+    <script defer language="javascript" type="module" src="js/main.js"></script>
 
     <title>Cryptdowner</title>
   </head>
@@ -24,14 +24,12 @@
         <div id="buttons" class="flex">
           <button
             id="encryptButton"
-            onclick="modifyUrlState()"
             class="toggleButton button"
           >
             Encrypt
           </button>
           <button
             id="decryptButton"
-            onclick="loadContentFromUrl()"
             class="toggleButton activeButton button"
           >
             Decrypt
