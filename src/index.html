@@ -7,44 +7,7 @@
     <script language="javascript" src="js/lz-string.min.js"></script>
     <script defer src="js/alpine.js"></script>
     <script language="javascript" src="js/sjcl.js"></script>
-
-    <script>
-      function modifyUrlState() {
-        const url = new URL(document.location.href)
-        const temp = LZString.compressToUTF16(
-          JSON.stringify(
-            sjcl.encrypt(
-              document.getElementById("password").value,
-              document.getElementById("input").value
-            )
-          )
-        );
-        url.searchParams.set("content", temp) 
-        window.history.pushState(
-          { id: "100" },
-          "Cryptdowner",
-          url.toString()
-        );
-      }
-
-      function loadContentFromUrl() {
-        document.getElementById("input").value = sjcl.decrypt(
-          document.getElementById("password").value,
-          JSON.parse(
-            LZString.decompressFromUTF16(
-              new URL(document.location.href).searchParams.get("content").toString()
-            )
-          )
-        );
-      }
-
-      function run() {
-        modifyUrlState();
-      }
-      window.onload = () => {
-        //loadContentFromUrl()
-      };
-    </script>
+    <script defer language="javascript" type="module" src="js/main.js"></script>
 
     <title>Cryptdowner</title>
   </head>
@@ -61,14 +24,12 @@
         <div id="buttons" class="flex">
           <button
             id="encryptButton"
-            onclick="modifyUrlState()"
             class="toggleButton button"
           >
             Encrypt
           </button>
           <button
             id="decryptButton"
-            onclick="loadContentFromUrl()"
             class="toggleButton activeButton button"
           >
             Decrypt
