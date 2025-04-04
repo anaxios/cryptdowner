@@ -1,6 +1,3 @@
-import View from "./view.js";
-import Model from "./model.js";
-
 export default class Controller {
   constructor(model, view) {
     this.model = model;
