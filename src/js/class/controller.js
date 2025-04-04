@@ -1,50 +1,28 @@
-import "../lz-string.min.js";
-import "../sjcl.js";
+import View from "./view.js";
+import Model from "./model.js";
 
 export default class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
+    this.encrypt = this.encrypt.bind(this);
+    this.decrypt = this.decrypt.bind(this);
+    this.model.encrypt = this.model.encrypt.bind(this);
+
+    this.view.bindEncrypt(this.encrypt);
+    this.view.bindDecrypt(this.decrypt);
   }
 
-  modifyUrlState() {
-    console.log("modifyUrlState");
-    const url = new URL(document.location.href);
-    const temp = LZString.compressToUTF16(
-      JSON.stringify(
-        sjcl.encrypt(
-          document.getElementById("password").value,
-          document.getElementById("input").value
-        )
-      )
-    );
-    url.searchParams.set("content", temp);
-    window.history.pushState({ id: "100" }, "Cryptdowner", url.toString());
+  encrypt() {
+    this.model.password = this.view.getPasswordFromField();
+    this.model.message = this.view.getMessageFromField();
+    this.view.setUrlState(this.model.encrypt());
+    this.view.setMessageField("");
   }
 
-  loadContentFromUrl() {
-    console.log("loadContentFromUrl");
-    document.getElementById("input").value = sjcl.decrypt(
-      document.getElementById("password").value,
-      JSON.parse(
-        LZString.decompressFromUTF16(
-          new URL(document.location.href).searchParams.get("content").toString()
-        )
-      )
-    );
+  decrypt() {
+    this.model.password = this.view.getPasswordFromField();
+    this.model.message = this.view.getUrlState();
+    this.view.setMessageField(this.model.decrypt(this.model.message));
   }
 }
-
-//   modifyUrlState() {
-//     const url = new URL(document.location.href);
-//     const temp = LZString.compressToUTF16(
-//       JSON.stringify(
-//         sjcl.encrypt(
-//           document.getElementById("password").value,
-//           document.getElementById("input").value
-//         )
-//       )
-//     );
-//     url.searchParams.set("content", temp);
-//     window.history.pushState({ id: "100" }, "Cryptdowner", url.toString());
-//   }

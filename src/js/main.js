@@ -1,16 +1,13 @@
 import Controller from "./class/controller.js";
 import View from "./class/view.js";
+import Model from "./class/model.js";
 
+const model = new Model({ password: "", message: "" });
 const view = new View();
-const controller = new Controller({ password: "pass", message: "hi" }, view);
+const controller = new Controller(model, view);
 
-document
-  .getElementById("encryptButton")
-  .addEventListener("click", controller.modifyUrlState);
+// controller.initEvents();
 
-document
-  .getElementById("decryptButton")
-  .addEventListener("click", controller.loadContentFromUrl);
 // function run() {
 //   modifyUrlState();
 // }
