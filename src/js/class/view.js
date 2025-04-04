@@ -31,8 +31,11 @@ export default class View {
   }
 
   getUrlState() {
-    return new URL(document.location.href).searchParams
-      .get("content")
-      .toString();
+    return new URL(document.location.href);
+  }
+
+  copyUrlToClipboard(url) {
+    console.log(url.href);
+    navigator.clipboard.writeText(url.href);
   }
 }
