@@ -115,18 +115,29 @@ body {
 
 .topBar {
   color: hsl(var(--clr-white));
-  padding: var(--xxs);
+  padding-inline: var(--xxs);
+  padding-inline: var(--s);
   background-color: hsl(var(--clr-light));
+  position: relative;
 }
 
 .button {
   font-family: Handjet;
   color: hsl(var(--clr-whiter));
-  margin-inline: var(--xxs);
+  margin-inline-start: var(--s);
   border: var(--xxxs) solid hsl(var(--clr-white));
   border-width: 0;
   background-color: hsl(var(--clr-compliment));
   padding: var(--xxs);
+  box-shadow: 2px 2px #99999963;
+  transition-duration: 250ms;
+  transition-property: background-color;
+}
+
+.button:active {
+  background-color: hsl(var(--clr-green));
+  /* transition-duration: 550ms;
+  transition-property: background-color; */
 }
 
 .contentWrapper {
@@ -139,6 +150,21 @@ body {
   background-color: hsl(var(--clr-whiter));
   flex-grow: 1;
   flex: 1;
+}
+
+.copied {
+  color: #f84c77;
+  font-size: var(--s);
+  position: absolute;
+  bottom: calc(-1 * var(--m));
+  right: var(--xs);
+  z-index: 999;
+}
+
+.hidden {
+  opacity: 0%;
+  transition-duration: 350ms;
+  transition-property: opacity;
 }
 
 .flex {
