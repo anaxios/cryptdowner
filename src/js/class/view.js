@@ -37,5 +37,14 @@ export default class View {
   copyUrlToClipboard(url) {
     console.log(url.href);
     navigator.clipboard.writeText(url.href);
+    this.copyShow();
+  }
+
+  copyShow() {
+    const element = document.querySelector("#copiedPopup");
+    element.classList.remove("hidden");
+    setTimeout(() => {
+      element.classList.add("hidden");
+    }, 2500);
   }
 }
