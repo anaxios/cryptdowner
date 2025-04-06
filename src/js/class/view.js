@@ -9,6 +9,13 @@ export default class View {
     document
       .getElementById("decryptButton")
       .addEventListener("click", callback);
+    document
+      .getElementById("password")
+      .addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          callback();
+        }
+      });
   }
 
   getPasswordFromField() {
