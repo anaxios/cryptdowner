@@ -16,6 +16,7 @@ export default class View {
           callback();
         }
       });
+      document.addEventListener('DOMContentLoaded', callback);
   }
 
   getPasswordFromField() {

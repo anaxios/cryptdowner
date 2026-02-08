@@ -98,13 +98,13 @@ body {
 
 .viewport-wrapper {
   font-family: iAWriter;
-  --_width: 70ch;
+  --_width: 200ch;
   display: flex;
   flex-direction: column;
   height: 100vh;
   flex-grow: 1;
-  max-width: var(--_width);
-  max-height: calc(var(--_width) / var(--phi));
+  max-width: min(97vw, var(--_width));
+  max-height: min(97vh, calc(var(--_width) / var(--phi)));
   margin-inline: auto;
 }
 

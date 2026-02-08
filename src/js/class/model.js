@@ -24,15 +24,25 @@ export default class Model {
   }
 
   encrypt() {
-    return LZString.compressToUTF16(
-      JSON.stringify(sjcl.encrypt(this.model.password, this.model.message))
-    );
+      if (this.model.password) {
+          return LZString.compressToEncodedURIComponent(
+              JSON.stringify(sjcl.encrypt(this.model.password,
+                                          this.model.message)))
+      } else {
+          return LZString.compressToEncodedURIComponent(this.model.message)
+      }
   }
 
   decrypt(encryptedMessage) {
-    return sjcl.decrypt(
-      this.password,
-      JSON.parse(LZString.decompressFromUTF16(encryptedMessage))
-    );
+      if (this.password) {
+          return sjcl.decrypt(this.password,
+                              JSON.parse(
+                                  LZString.decompressFromEncodedURIComponent(
+                                      encryptedMessage)
+                              ))
+      } else {
+          return LZString.decompressFromEncodedURIComponent(
+              encryptedMessage)
+      }
   }
 }
