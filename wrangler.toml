@@ -14,7 +14,7 @@ command = ""
 
 [route]
 pattern = "cryptdowner.daedalist.net/*"
-zone_name = "cryptdowner.daedalist.net"
+zone_name = "daedalist.net"
 
 [[kv_namespaces]]
 binding = "cryptdowner"
