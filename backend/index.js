@@ -1,19 +1,25 @@
 import { Hono } from 'hono';
-import { rateLimiter } from "hono-rate-limiter";
-//import { serveStatic } from 'hono/cloudflare-workers';
 import KVStoreCFKV from './lib/KVStoreCFKV.js';
-
+import { createMiddleware } from 'hono/factory';
 const app = new Hono();
 
+const rateLimiter = (keyFn) => {
+  return createMiddleware(async (c, next) => {
+    const key = keyFn ? keyFn(c) : new URL(c.req.url).pathname
+
+    const { success } = await c.env.RATE_LIMITER.limit({ key })
+
+    if (!success) {
+      return c.text(`429 Failure – rate limit exceeded for ${key}`, 429)
+    }
+
+    await next()
+  })
+}
+
 // Apply rate limiting middleware
-app.use(
-    rateLimiter({
-        windowMs: 15 * 60 * 1000, // 15 minutes
-        limit: 100, // Limit each client to 100 requests per window
-        keyGenerator: (c) => c.req.header("x-forwarded-for") ?? "", // Use IP address as key
-    })
-);
-//const db = new KVStore();
+app.use('*', rateLimiter());
+//app.use('*', rateLimiter((c) => c.req.header('cf-connecting-ip') || 'unknown'));
 
 app.get('/api/retrieve/:id', async (c) => {
     const db = new KVStoreCFKV(c.env);
