@@ -1,12 +1,12 @@
 "$schema" = "./node_modules/wrangler/config-schema.json"
 name = "cryptdowner"
-main = "index.js"
+main = "backend/index.js"
 compatibility_date = "2026-02-10"
 workers_dev = true
 compatibility_flags = ["nodejs_compat"]
 
 [assets]
-directory = "../src"
+directory = "src"
 binding = "ASSETS"
 
 [build]
