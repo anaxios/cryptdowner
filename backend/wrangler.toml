@@ -1,0 +1,24 @@
+"$schema" = "./node_modules/wrangler/config-schema.json"
+name = "cryptdowner"
+main = "index.js"
+compatibility_date = "2026-02-10"
+workers_dev = true
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "../src"
+binding = "ASSETS"
+
+[build]
+command = ""
+
+[route]
+pattern = "cryptdowner.daedalist.net/*"
+zone_name = "cryptdowner.daedalist.net"
+
+[[kv_namespaces]]
+binding = "cryptdowner"
+id = "6751422c4e08453c964f2774e396d267"
+
+[env.staging]
+name = "cryptdowner-staging"

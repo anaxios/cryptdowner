@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script language="javascript" src="js/lz-string.min.js"></script>
-    <script defer src="js/alpine.js"></script>
     <script language="javascript" src="js/sjcl.js"></script>
     <script defer language="javascript" type="module" src="js/main.js"></script>
 
@@ -39,7 +38,11 @@
       </div>
 
       <div id="contentWrapper" class="flex contentWrapper">
-        <textarea id="input" class="panel" maxlength="32768" placeholder="your message here... If you hit 'encrypt' without a password the message will only be compressed."></textarea>
+        <textarea id="input" class="panel" maxlength="32768" placeholder="Your text here...
+Pressing the 'Encrypt' button will encrypt your text and store it securely on the server.
+Your password is encluded in the url for easy sharing.
+If you hit 'Encrypt' without a password one will be generated for you and included in the url.
+All encryption/decryption is done on the client and the password is never send to the server."></textarea>
       </div>
     </div>
   </body>
