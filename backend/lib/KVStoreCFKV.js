@@ -2,7 +2,7 @@ export default class KVStoreCFKV {
 
     constructor(env) {
         this.env = env;
-        this.expirationTTL = 60 * 60 * 24 * 7;
+        this.expirationTTL = 60 * 60 * 24 * 7; // one week of seconds
     }
 
     close() {

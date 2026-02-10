@@ -18,8 +18,8 @@ const rateLimiter = (keyFn) => {
 }
 
 // Apply rate limiting middleware
-app.use('*', rateLimiter());
-//app.use('*', rateLimiter((c) => c.req.header('cf-connecting-ip') || 'unknown'));
+//app.use('*', rateLimiter());
+app.use('*', rateLimiter((c) => c.req.header('cf-connecting-ip') || 'unknown'));
 
 app.get('/api/retrieve/:id', async (c) => {
     const db = new KVStoreCFKV(c.env);
