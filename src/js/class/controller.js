@@ -4,10 +4,20 @@ export default class Controller {
         this.view = view;
         this.encrypt = this.encrypt.bind(this);
         this.decrypt = this.decrypt.bind(this);
+        this.reset   = this.reset.bind(this);
         this.model.encrypt = this.model.encrypt.bind(this);
 
         this.view.bindEncrypt(this.encrypt);
         this.view.bindDecrypt(this.decrypt);
+        this.view.bindReset(this.reset);
+    }
+
+    reset() {
+        this.model.message = null;
+        this.view.setMessageField(this.model.message);
+        this.model.password = null;
+        this.view.setPasswordField(this.model.password);
+        this.view.resetUrl();
     }
 
     async encrypt() {

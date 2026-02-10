@@ -91,9 +91,14 @@ body {
 
 .logo {
   color: hsl(var(--clr-white));
-  font-family: Handjet;
   font-size: var(--l);
   padding-block: var(--xxxs);
+  font-family: Handjet;
+  margin-inline-start: var(--s);
+  border-width: 0;
+  background-color: hsl(var(--clr-light));
+  transition-duration: 250ms;
+  transition-property: background-color;
 }
 
 .viewport-wrapper {

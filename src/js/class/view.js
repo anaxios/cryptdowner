@@ -1,22 +1,34 @@
 export default class View {
     bindEncrypt(callback) {
-        document
-            .getElementById("encryptButton")
-            .addEventListener("click", callback);
+        document.addEventListener('DOMContentLoaded', () => {
+            document
+                .getElementById("encryptButton")
+                .addEventListener("click", callback);
+        });
     }
 
     bindDecrypt(callback) {
-        document
-            .getElementById("decryptButton")
-            .addEventListener("click", callback);
-        document
-            .getElementById("password")
-            .addEventListener("keypress", function (e) {
-                if (e.key === "Enter") {
-                    callback();
-                }
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            document
+                .getElementById("decryptButton")
+                .addEventListener("click", callback);
+            document
+                .getElementById("password")
+                .addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") {
+                        callback();
+                    }
+                });
+        });
         document.addEventListener('DOMContentLoaded', callback);
+    }
+
+    bindReset(callback) {
+        document.addEventListener('DOMContentLoaded', () => {
+            document
+                .getElementById("resetButton")
+                .addEventListener("click", callback);
+        });
     }
 
     getPasswordFromField() {
@@ -47,6 +59,11 @@ export default class View {
         const url = new URL(document.location.href);
 
         url.searchParams.set("id", message);
+        window.history.pushState({ id: "100" }, "Cryptdowner", url.toString());
+    }
+
+    resetUrl() {
+        const url = this.getBaseUrl();
         window.history.pushState({ id: "100" }, "Cryptdowner", url.toString());
     }
 
