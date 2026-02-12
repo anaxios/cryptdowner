@@ -22,15 +22,4 @@ export default class Model {
   get message() {
     return this._message;
   }
-
-  //    encrypt() {
-  //        return sjcl.encrypt(this.model.password,
-  //                            this.model.message)
-  //    }
-  //
-  //    decrypt(encryptedMessage) {
-  //        return sjcl.decrypt(this.password,
-  //                            JSON.parse(encryptedMessage)
-  //                           )
-  //    }
 }
