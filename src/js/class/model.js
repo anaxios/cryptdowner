@@ -1,36 +1,16 @@
-import "../lz-string.min.js";
-import "../sjcl.js";
-
 export default class Model {
-    constructor(data) {
-        this.password = data.password;
-        this.message = data.message;
-    }
+  constructor() {
+    //    this.password = data.password;
+    //    this.message = data.message;
+    this.history = [];
+  }
 
-    set password(pass) {
-        this._password = pass;
-    }
+  set(model) {
+    this.history.push(model);
+  }
 
-    get password() {
-        return this._password;
-    }
-
-    set message(message) {
-        this._message = message;
-    }
-
-    get message() {
-        return this._message;
-    }
-
-    encrypt() {
-        return sjcl.encrypt(this.model.password,
-                            this.model.message)
-    }
-
-    decrypt(encryptedMessage) {
-        return sjcl.decrypt(this.password,
-                            JSON.parse(encryptedMessage)
-                           )
-    }
+  get(revision = 1) {
+    // Negates to index from the end of array.
+    return this.history.at(-revision);
+  }
 }
