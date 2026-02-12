@@ -1,55 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <script language="javascript" src="js/lz-string.min.js"></script>
-    <script language="javascript" src="js/sjcl.js"></script>
-    <script defer language="javascript" type="module" src="js/main.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script language="javascript" src="js/lz-string.min.js"></script>
+        <script language="javascript" src="js/sjcl.js"></script>
+        <script
+            defer
+            language="javascript"
+            type="module"
+            src="js/main.js"
+        ></script>
 
-    <title>Cryptdowner</title>
-  </head>
+        <title>Cryptdowner</title>
+    </head>
 
-  <body>
-    <div id="viewport-wrapper" class="viewport-wrapper">
-      <div
-        id="topBar"
-        class="flex topBar"
-        style="align-items: center; justify-content: space-between"
-      >
-        <div class="logo">Cryptdowner</div>
-        <input id="password" placeholder="password"/>
-        <div id="buttons" class="flex">
-          <button
-            id="resetButton"
-            class="toggleButton button"
-          >
-           Reset
-          </button>
-          <button
-            id="encryptButton"
-            class="toggleButton button"
-          >
-            Encrypt
-          </button>
-          <button
-            id="decryptButton"
-            class="toggleButton activeButton button"
-          >
-            Decrypt
-          </button>
-        </div>
-        <div id="copiedPopup" class="copied hidden">Copied to clipboard!</div>
-      </div>
+    <body>
+        <div id="viewport-wrapper" class="viewport-wrapper">
+            <div
+                id="topBar"
+                class="flex topBar"
+                style="align-items: center; justify-content: space-between"
+            >
+                <div class="logo">Cryptdowner</div>
+                <input id="password" placeholder="password" />
+                <div id="buttons" class="flex">
+                    <button id="resetButton" class="toggleButton button">
+                        Reset
+                    </button>
+                    <button id="encryptButton" class="toggleButton button">
+                        Save
+                    </button>
+                    <button
+                        id="decryptButton"
+                        class="toggleButton activeButton button"
+                    >
+                        Load
+                    </button>
+                </div>
+                <div id="copiedPopup" class="copied hidden">
+                    Copied to clipboard!
+                </div>
+            </div>
 
-      <div id="contentWrapper" class="flex contentWrapper">
-        <textarea id="input" class="panel" maxlength="32768" placeholder="Your text here...
+            <div id="contentWrapper" class="flex contentWrapper">
+                <textarea
+                    id="input"
+                    class="panel"
+                    maxlength="32768"
+                    placeholder="Your text here...
 Pressing the 'Encrypt' button will encrypt your text and store it securely on the server.
 Your password is encluded in the url for easy sharing.
 If you hit 'Encrypt' without a password one will be generated for you and included in the url.
-All encryption/decryption is done on the client and the password is never send to the server."></textarea>
-      </div>
-    </div>
-  </body>
+All encryption/decryption is done on the client and the password is never send to the server."
+                ></textarea>
+            </div>
+        </div>
+    </body>
 </html>
