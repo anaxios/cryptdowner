@@ -12,59 +12,87 @@ export default class Controller {
   }
 
   reset() {
-    this.model.message = null;
-    this.view.setMessageField(this.model.message);
-    this.model.password = null;
-    this.view.setPasswordField(this.model.password);
+    this.model.set({});
+    this.view.setMessageField("");
+    this.view.setPasswordField("");
     this.view.resetUrl();
   }
 
   async save() {
-    this.model.message = this.view.getMessageFromField();
-    if (!this.model.message) {
+    const message = this.view.getMessageFromField();
+    if (!message) {
       return;
     }
 
-    this.model.password = this.view.getPasswordFromField();
-    if (!this.model.password) {
-      this.model.password = await this.randomPassword();
-      this.view.setPasswordField(this.model.password);
+    let password = this.view.getPasswordFromField();
+    if (!password) {
+      password = await this.randomPassword();
+      this.view.setPasswordField(password);
     }
-    this.view.setUrlHash(this.model.password);
-    const id = await this.storeData(this.encrypt());
+
+    // If current password & message matches old password & message return.
+    const model = this.model.get();
+    const p = model?.password;
+    const m = model?.message;
+    if (
+      JSON.stringify({ password: p, message: m }) ==
+      JSON.stringify({ password, message })
+    ) {
+      return;
+    }
+
+    this.view.setUrlHash(password);
+    const id = await this.storeData(this.encrypt(password, message));
+
+    // Save state
+    this.model.set({ ...model, id, password, message });
+
     this.view.setUrlState(id);
     this.view.copyUrlToClipboard(this.view.getUrlState());
-    this.view.setMessageField("");
+    //this.view.setMessageField("");
   }
 
   async load() {
-    this.model.password = this.view.getPasswordFromField();
-    if (!this.model.password && this.view.getUrlHash()) {
-      this.model.password = this.view.getUrlHash();
-      this.view.setPasswordField(this.model.password);
-    }
-    const id = this.view.getUrlState().searchParams.get("id");
+    const model = this.model.get();
+
+    let password;
+    let message;
+    let id = this.view.getUrlState().searchParams.get("id");
     if (!id) {
       return;
     }
-    const encryptedMessage = await this.fetchData(id);
-    this.model.message = this.decrypt(encryptedMessage);
-    this.view.setMessageField(this.model.message);
+    if (model?.id === id) {
+      message = model.message;
+      this.view.setMessageField(message);
+      password = model.password;
+      this.view.setPasswordField(password);
+    } else {
+      password = this.view.getPasswordFromField();
+      if (!password && this.view.getUrlHash()) {
+        password = this.view.getUrlHash();
+        this.view.setPasswordField(password);
+        const encryptedMessage = await this.fetchData(id);
+        message = this.decrypt(password, encryptedMessage);
+      }
+
+      this.view.setMessageField(message);
+      // Save state
+      this.model.set({ ...model, id, password, message });
+    }
   }
 
-  encrypt() {
-    return sjcl.encrypt(this.model.password, this.model.message);
+  encrypt(password, message) {
+    return sjcl.encrypt(password, message);
   }
 
-  decrypt(encryptedMessage) {
-    return sjcl.decrypt(this.model.password, JSON.parse(encryptedMessage));
+  decrypt(password, encryptedMessage) {
+    return sjcl.decrypt(password, JSON.parse(encryptedMessage));
   }
 
   async fetchData(id) {
     try {
       const r = await fetch(`/api/retrieve/${id}`);
       const d = await r.json();
-      //console.log(d);
       return d;
     } catch (e) {
       console.error("Error:", e);
