@@ -49,7 +49,7 @@ export default class Controller {
 
     this.view.setUrlState(id);
     this.view.copyUrlToClipboard(this.view.getUrlState());
-    //this.view.setMessageField("");
+    this.view.setMessageField("");
   }
 
   async load() {
@@ -112,7 +112,6 @@ export default class Controller {
       if (!r.ok) {
         throw new Error(`HTTP error! status: ${r.status}`);
       }
-
       const result = await r.json();
       return result.id;
     } catch (e) {
@@ -128,7 +127,6 @@ export default class Controller {
       if (!r.ok) {
         throw new Error(`HTTP error! status: ${r.status}`);
       }
-
       const p = await r.text();
       return p;
     } catch (e) {
