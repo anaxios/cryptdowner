@@ -1,6 +1,3 @@
-import "../lz-string.min.js";
-import "../sjcl.js";
-
 export default class Model {
   constructor(data) {
     this.password = data.password;
