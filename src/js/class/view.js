@@ -34,7 +34,7 @@ export default class View {
     const debounceCallback = this.debounce(callback, 100);
     document
       .getElementById("input")
-      .addEventListener("change", debounceCallback);
+      .addEventListener("input", debounceCallback);
     document.addEventListener("DOMContentLoaded", debounceCallback);
   }
 

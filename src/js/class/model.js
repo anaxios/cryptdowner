@@ -13,8 +13,8 @@ export default class Model {
 
   get(revision = 1) {
     // Negates to index from the end of array.
-    //console.log(`get model:`);
-    //console.log(this.history.at(-revision));
+    console.log(`get model:`);
+    console.log(this.history.at(-revision));
     return this.history.at(-revision);
   }
 }
