@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script language="javascript" src="js/lz-string.min.js"></script>
         <script language="javascript" src="js/sjcl.js"></script>
+        <script language="javascript" src="js/showdown.min.js" defer></script>
         <script
             defer
             language="javascript"
@@ -27,7 +28,10 @@
                 <input id="password" placeholder="password" />
                 <div id="buttons" class="flex">
                     <button id="resetButton" class="toggleButton button">
-                        Reset
+                        New
+                    </button>
+                    <button id="editButton" class="toggleButton button">
+                        New (copy)
                     </button>
                     <button id="encryptButton" class="toggleButton button">
                         Save
@@ -55,6 +59,7 @@ Your password is encluded in the url for easy sharing.
 If you hit 'Encrypt' without a password one will be generated for you and included in the url.
 All encryption/decryption is done on the client and the password is never send to the server."
                 ></textarea>
+                <div id="md-view" class="border: 5px"></div>
             </div>
         </div>
     </body>

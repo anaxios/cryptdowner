@@ -2,13 +2,17 @@ export default class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
+    this.converter = new showdown.Converter();
+
     this.save = this.save.bind(this);
     this.load = this.load.bind(this);
     this.reset = this.reset.bind(this);
+    this.markdown = this.markdown.bind(this);
 
     this.view.bindSave(this.save);
     this.view.bindLoad(this.load);
     this.view.bindReset(this.reset);
+    this.view.bindMarkdown(this.markdown);
   }
 
   reset() {
@@ -16,6 +20,7 @@ export default class Controller {
     this.view.setMessageField("");
     this.view.setPasswordField("");
     this.view.resetUrl();
+    this.view.viewMode("input");
   }
 
   async save() {
@@ -49,7 +54,8 @@ export default class Controller {
 
     this.view.setUrlState(id);
     this.view.copyUrlToClipboard(this.view.getUrlState());
-    this.view.setMessageField("");
+    this.view.setMessageField(message);
+    this.view.viewMode("md-view");
   }
 
   async load() {
@@ -59,6 +65,7 @@ export default class Controller {
     let message;
     let id = this.view.getUrlState().searchParams.get("id");
     if (!id) {
+      this.view.viewMode("input");
       return;
     }
     if (model?.id === id) {
@@ -76,9 +83,16 @@ export default class Controller {
       }
 
       this.view.setMessageField(message);
+      //this.view.viewMode("md-view");
       // Save state
       this.model.set({ ...model, id, password, message });
     }
+  }
+
+  markdown() {
+    const message = this.view.getMessageFromField();
+    let md = this.converter.makeHtml(message);
+    this.view.setMarkdownField(md);
   }
 
   encrypt(password, message) {

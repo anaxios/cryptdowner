@@ -8,27 +8,51 @@ export default class View {
   }
 
   bindLoad(callback) {
-    document.addEventListener("DOMContentLoaded", () => {
-      document
-        .getElementById("decryptButton")
-        .addEventListener("click", callback);
-      document
-        .getElementById("password")
-        .addEventListener("keypress", function (e) {
-          if (e.key === "Enter") {
-            callback();
-          }
-        });
-    });
+    //document.addEventListener("DOMContentLoaded", () => {
+    document
+      .getElementById("decryptButton")
+      .addEventListener("click", callback);
+    document
+      .getElementById("password")
+      .addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          callback();
+        }
+      });
+    //});
     document.addEventListener("DOMContentLoaded", callback);
   }
 
   bindReset(callback) {
-    document.addEventListener("DOMContentLoaded", () => {
-      document
-        .getElementById("resetButton")
-        .addEventListener("click", callback);
-    });
+    //document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("resetButton").addEventListener("click", callback);
+    //});
+  }
+
+  bindMarkdown(callback) {
+    //document.getElementById("md-view").addEventListener("keyup", callback);
+    const debounceCallback = this.debounce(callback, 500);
+    document
+      .getElementById("input")
+      .addEventListener("change", debounceCallback);
+    //document.addEventListener("DOMContentLoaded", callback);
+  }
+
+  debounce(fn, duration) {
+    let id;
+    return (...args) => {
+      if (id) clearTimeout(id);
+      id = setTimeout(() => fn(...args), duration);
+    };
+  }
+
+  viewMode(element) {
+    document.getElementById(element).classList.remove("hidden");
+    [...document.getElementById("contentWrapper").children]
+      .filter((child) => child.id !== element)
+      .forEach((child) => {
+        document.getElementById(child.id).classList.add("hidden");
+      });
   }
 
   getPasswordFromField() {
@@ -45,6 +69,10 @@ export default class View {
 
   setMessageField(message) {
     document.getElementById("input").value = message;
+  }
+
+  setMarkdownField(message) {
+    document.getElementById("md-view").innerHTML = message;
   }
 
   getUrlHash() {
