@@ -24,11 +24,38 @@ export default class View {
   }
 
   bindReset(callback) {
-    document.addEventListener("DOMContentLoaded", () => {
-      document
-        .getElementById("resetButton")
-        .addEventListener("click", callback);
-    });
+    //document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("resetButton").addEventListener("click", callback);
+    //});
+  }
+
+  bindMarkdown(callback) {
+    //document.getElementById("md-view").addEventListener("keyup", callback);
+    const debounceCallback = this.debounce(callback, 100);
+    document
+      .getElementById("input")
+      .addEventListener("input", debounceCallback);
+    document.addEventListener("DOMContentLoaded", debounceCallback);
+  }
+
+  bindEdit(callback) {
+    document.getElementById("editButton").addEventListener("click", callback);
+  }
+  debounce(fn, duration) {
+    let id;
+    return (...args) => {
+      if (id) clearTimeout(id);
+      id = setTimeout(() => fn(...args), duration);
+    };
+  }
+
+  viewMode(element) {
+    document.getElementById(element).classList.remove("hidden");
+    [...document.getElementById("contentWrapper").children]
+      .filter((child) => child.id !== element)
+      .forEach((child) => {
+        document.getElementById(child.id).classList.add("hidden");
+      });
   }
 
   getPasswordFromField() {
@@ -45,6 +72,10 @@ export default class View {
 
   setMessageField(message) {
     document.getElementById("input").value = message;
+  }
+
+  setMarkdownField(message) {
+    document.getElementById("md-view").innerHTML = message;
   }
 
   getUrlHash() {
@@ -76,7 +107,7 @@ export default class View {
   }
 
   copyUrlToClipboard(url) {
-    console.log(url.href);
+    //console.log(url.href);
     navigator.clipboard.writeText(url.href);
     this.copyShow();
   }

@@ -2,13 +2,23 @@ export default class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
+    this.converter = new showdown.Converter();
+
     this.save = this.save.bind(this);
     this.load = this.load.bind(this);
     this.reset = this.reset.bind(this);
+    this.markdown = this.markdown.bind(this);
+    this.edit = this.edit.bind(this);
 
     this.view.bindSave(this.save);
     this.view.bindLoad(this.load);
     this.view.bindReset(this.reset);
+    this.view.bindMarkdown(this.markdown);
+    this.view.bindEdit(this.edit);
+  }
+
+  edit() {
+    this.view.viewMode("input");
   }
 
   reset() {
@@ -16,6 +26,7 @@ export default class Controller {
     this.view.setMessageField("");
     this.view.setPasswordField("");
     this.view.resetUrl();
+    this.view.viewMode("input");
   }
 
   async save() {
@@ -44,12 +55,14 @@ export default class Controller {
     this.view.setUrlHash(password);
     const id = await this.storeData(this.encrypt(password, message));
 
+    //console.log(`save: ${message}`);
     // Save state
     this.model.set({ ...model, id, password, message });
 
     this.view.setUrlState(id);
     this.view.copyUrlToClipboard(this.view.getUrlState());
-    //this.view.setMessageField("");
+    this.view.setMessageField(message);
+    this.view.viewMode("md-view");
   }
 
   async load() {
@@ -59,26 +72,52 @@ export default class Controller {
     let message;
     let id = this.view.getUrlState().searchParams.get("id");
     if (!id) {
+      this.view.viewMode("input");
       return;
     }
-    if (model?.id === id) {
+    if (model?.id === id && model?.message) {
       message = model.message;
+      console.log(`hmmm ${message}`);
       this.view.setMessageField(message);
+      //console.log(message);
       password = model.password;
       this.view.setPasswordField(password);
+      this.markdown();
     } else {
-      password = this.view.getPasswordFromField();
-      if (!password && this.view.getUrlHash()) {
-        password = this.view.getUrlHash();
-        this.view.setPasswordField(password);
-        const encryptedMessage = await this.fetchData(id);
-        message = this.decrypt(password, encryptedMessage);
+      if (!this.view.getUrlHash() && !this.view.getPasswordFromField()) {
+        this.view.viewMode("md-view");
+        return;
       }
 
+      if (this.view.getUrlHash()) {
+        password = this.view.getUrlHash();
+        this.view.setPasswordField(password);
+      } else if (this.view.getPasswordFromField()) {
+        password = this.view.getPasswordFromField();
+        this.view.setPasswordField(password);
+      }
+
+      const encryptedMessage = await this.fetchData(id);
+      try {
+        message = this.decrypt(password, encryptedMessage);
+      } catch (e) {
+        console.error(e);
+      }
+      //console.log(`fresh decrypt: ${message}`);
+
+      //console.log(`reached this point: ${message}`);
       this.view.setMessageField(message);
+      this.markdown();
+      this.view.viewMode("md-view");
       // Save state
       this.model.set({ ...model, id, password, message });
     }
+  }
+
+  markdown() {
+    const message = this.view.getMessageFromField();
+    let md = this.converter.makeHtml(message);
+    this.view.setMarkdownField(md);
   }
 
   encrypt(password, message) {
@@ -112,7 +151,6 @@ export default class Controller {
       if (!r.ok) {
         throw new Error(`HTTP error! status: ${r.status}`);
       }
-
       const result = await r.json();
       return result.id;
     } catch (e) {
@@ -128,7 +166,6 @@ export default class Controller {
       if (!r.ok) {
         throw new Error(`HTTP error! status: ${r.status}`);
       }
-
       const p = await r.text();
       return p;
     } catch (e) {

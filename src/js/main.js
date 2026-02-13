@@ -5,12 +5,3 @@ import Model from "./class/model.js";
 const model = new Model();
 const view = new View();
 const controller = new Controller(model, view);
-
-// controller.initEvents();
-
-// function run() {
-//   modifyUrlState();
-// }
-// window.onload = () => {
-//   //loadContentFromUrl()
-// };

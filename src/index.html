@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script language="javascript" src="js/lz-string.min.js"></script>
         <script language="javascript" src="js/sjcl.js"></script>
+        <script language="javascript" src="js/showdown.min.js" defer></script>
         <script
             defer
             language="javascript"
@@ -27,7 +28,10 @@
                 <input id="password" placeholder="password" />
                 <div id="buttons" class="flex">
                     <button id="resetButton" class="toggleButton button">
-                        Reset
+                        New
+                    </button>
+                    <button id="editButton" class="toggleButton button">
+                        New (copy)
                     </button>
                     <button id="encryptButton" class="toggleButton button">
                         Save
@@ -47,14 +51,16 @@
             <div id="contentWrapper" class="flex contentWrapper">
                 <textarea
                     id="input"
-                    class="panel"
+                    class="panel md-view"
                     maxlength="32768"
                     placeholder="Your text here...
 Pressing the 'Encrypt' button will encrypt your text and store it securely on the server.
 Your password is encluded in the url for easy sharing.
-If you hit 'Encrypt' without a password one will be generated for you and included in the url.
-All encryption/decryption is done on the client and the password is never send to the server."
+If you hit 'Encrypt' without a password one will be generated for you and included in the URL.
+All encryption/decryption is done on the client and the password is never send to the server.
+All saves are immutable 'New (copy)' will create a new ID."
                 ></textarea>
+                <div id="md-view" class="md-view"></div>
             </div>
         </div>
     </body>
