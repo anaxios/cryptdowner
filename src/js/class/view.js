@@ -8,18 +8,18 @@ export default class View {
   }
 
   bindLoad(callback) {
-    //document.addEventListener("DOMContentLoaded", () => {
-    document
-      .getElementById("decryptButton")
-      .addEventListener("click", callback);
-    document
-      .getElementById("password")
-      .addEventListener("keypress", function (e) {
-        if (e.key === "Enter") {
-          callback();
-        }
-      });
-    //});
+    document.addEventListener("DOMContentLoaded", () => {
+      document
+        .getElementById("decryptButton")
+        .addEventListener("click", callback);
+      document
+        .getElementById("password")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            callback();
+          }
+        });
+    });
     document.addEventListener("DOMContentLoaded", callback);
   }
 
@@ -31,13 +31,16 @@ export default class View {
 
   bindMarkdown(callback) {
     //document.getElementById("md-view").addEventListener("keyup", callback);
-    const debounceCallback = this.debounce(callback, 500);
+    const debounceCallback = this.debounce(callback, 100);
     document
       .getElementById("input")
       .addEventListener("change", debounceCallback);
-    //document.addEventListener("DOMContentLoaded", callback);
+    document.addEventListener("DOMContentLoaded", debounceCallback);
   }
 
+  bindEdit(callback) {
+    document.getElementById("editButton").addEventListener("click", callback);
+  }
   debounce(fn, duration) {
     let id;
     return (...args) => {
@@ -104,7 +107,7 @@ export default class View {
   }
 
   copyUrlToClipboard(url) {
-    console.log(url.href);
+    //console.log(url.href);
     navigator.clipboard.writeText(url.href);
     this.copyShow();
   }

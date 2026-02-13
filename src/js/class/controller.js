@@ -8,11 +8,17 @@ export default class Controller {
     this.load = this.load.bind(this);
     this.reset = this.reset.bind(this);
     this.markdown = this.markdown.bind(this);
+    this.edit = this.edit.bind(this);
 
     this.view.bindSave(this.save);
     this.view.bindLoad(this.load);
     this.view.bindReset(this.reset);
     this.view.bindMarkdown(this.markdown);
+    this.view.bindEdit(this.edit);
+  }
+
+  edit() {
+    this.view.viewMode("input");
   }
 
   reset() {
@@ -49,6 +55,7 @@ export default class Controller {
     this.view.setUrlHash(password);
     const id = await this.storeData(this.encrypt(password, message));
 
+    //console.log(`save: ${message}`);
     // Save state
     this.model.set({ ...model, id, password, message });
 
@@ -70,20 +77,24 @@ export default class Controller {
     }
     if (model?.id === id) {
       message = model.message;
+      //console.log(`hmmm ${message}`);
       this.view.setMessageField(message);
+      //console.log(message);
       password = model.password;
       this.view.setPasswordField(password);
     } else {
       password = this.view.getPasswordFromField();
-      if (!password && this.view.getUrlHash()) {
-        password = this.view.getUrlHash();
-        this.view.setPasswordField(password);
-        const encryptedMessage = await this.fetchData(id);
-        message = this.decrypt(password, encryptedMessage);
-      }
+      //if (!password && this.view.getUrlHash()) {
+      password = this.view.getUrlHash();
+      this.view.setPasswordField(password);
+      const encryptedMessage = await this.fetchData(id);
+      message = this.decrypt(password, encryptedMessage);
+      //console.log(`fresh decrypt: ${message}`);
+      //}
 
+      //console.log(`reached this point: ${message}`);
       this.view.setMessageField(message);
-      //this.view.viewMode("md-view");
+      this.view.viewMode("md-view");
       // Save state
       this.model.set({ ...model, id, password, message });
     }

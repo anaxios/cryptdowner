@@ -187,3 +187,7 @@ body {
 .grid {
     display: grid;
 }
+
+.md-view {
+    padding: var(--s);
+}
